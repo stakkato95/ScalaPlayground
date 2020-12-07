@@ -11,6 +11,7 @@ object Main {
     //    closures()
     //    lists()
     //    maps()
+    //    sets()
   }
 
   def assertions() = {
@@ -191,5 +192,17 @@ object Main {
     println(reducedMap)
     val veryReducedMap = reducedMap -- List(2, 3)
     println(veryReducedMap)
+  }
+
+  def sets() = {
+    val setOne = Set("hello", "world", "!!!")
+    val setTwo = Set("100500hello", "why", "world")
+
+    val setUnion = setOne union setTwo
+    println(setUnion == (setOne | setTwo))
+    println(setUnion)
+
+    val setDiff = setOne diff setTwo
+    println(setDiff)
   }
 }
