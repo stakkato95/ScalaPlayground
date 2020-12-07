@@ -12,7 +12,8 @@ object Main {
     //    lists()
     //    maps()
     //    sets()
-    patternMatching()
+    //    patternMatching()
+    //    caseClasses()
   }
 
   def assertions() = {
@@ -247,5 +248,33 @@ object Main {
       }
       println(secondElement)
     }
+  }
+
+  def caseClasses() = {
+    //case class is similar to data class in Kotlin
+    //out of the box:
+    //1 hashcode
+    //2 equals
+    //3 toString
+
+    val x = Var("x")
+    val x1 = Var("x")
+
+    println(x == x1)
+    println(x)
+
+    def isIdentityFun(term: Term): Boolean = term match {
+      case Fun(x, Var(y)) if x == y => true
+      case _ => false
+    }
+
+    val fun = Fun("x", Var("x"))
+    println(fun)
+    println(isIdentityFun(fun))
+    println(isIdentityFun(Var("x")))
+
+    val robot = Robot("T100", "Terminator")
+    //mutable "var" property
+    robot.name = "Arnold"
   }
 }
