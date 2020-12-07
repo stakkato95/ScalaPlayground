@@ -1,3 +1,5 @@
+import scala.collection.mutable.{Map => MutableMap}
+
 object Main {
   def main(args: Array[String]) = {
     //    assertions()
@@ -7,7 +9,8 @@ object Main {
     //    tuples()
     //    lambdas()
     //    closures()
-    lists()
+    //    lists()
+    //    maps()
   }
 
   def assertions() = {
@@ -151,8 +154,42 @@ object Main {
 
     //concat arrays
     val rangeList = (1 to 5).toList
-    println(rangeList:::rangeList)
+    println(rangeList ::: rangeList)
     //concat arrays
-    println(0::rangeList)
+    println(0 :: rangeList)
+  }
+
+  def maps() = {
+    //this is a TUPLE!!!
+    val someTuples = (1 -> "hello", 2 -> "world", 3 -> "!!!", 4 -> "hello100500")
+    println(someTuples.getClass.getTypeName)
+    //but this is a MAP!!!
+    val someMap = Map(1 -> "hello", 2 -> "world", 3 -> "!!!")
+    println(someMap.getClass.getTypeName)
+
+    println(someMap.size)
+    println(someMap.contains(0))
+
+    val anotherMap = someMap + (0 -> "start")
+    println(anotherMap.contains(0))
+    println(anotherMap.head)
+
+    //different ways to get
+    println(anotherMap(0))
+    println("simply not found: " + anotherMap.get(10))
+    println("not found and default: " + anotherMap.getOrElse(10, "hi!"))
+    try {
+      println(anotherMap(10))
+    } catch {
+      case e: NoSuchElementException => {
+        println("not found and error message: " + e.getMessage)
+      }
+    }
+
+    //remove elements
+    val reducedMap = anotherMap - 0
+    println(reducedMap)
+    val veryReducedMap = reducedMap -- List(2, 3)
+    println(veryReducedMap)
   }
 }
