@@ -6,7 +6,8 @@ object Main {
     //    companionObjects()
     //    tuples()
     //    lambdas()
-    closures()
+    //    closures()
+    lists()
   }
 
   def assertions() = {
@@ -102,12 +103,56 @@ object Main {
     println(closure(1, 2))
 
     def addFive = (x: Int) => x + 10
+
     def funReturningAnotherFun(x: Int, f: Int => Int) = f(x)
+
     val resultOfAddingFiveAndTen = funReturningAnotherFun(5, addFive)
     println(resultOfAddingFiveAndTen)
 
     val list = List("HELLO", "WoRlD", "ExClAmAtIoN")
+
     def listProcessor(ls: List[String], sideEffect: String => String) = ls map sideEffect
+
     println(listProcessor(list, _.toLowerCase))
+  }
+
+  def lists() = {
+    val a = List(1, 2, 3, 4, 5, 6)
+    val b = List(1, 2, 3, 4, 5, 6)
+    //content is compared
+    println(a eq b)
+    println(a == b)
+
+    val stringList: List[String] = Nil
+    val intList: List[Int] = Nil
+    //lists of different types are equal
+    println(stringList == intList)
+
+    println(stringList.headOption.getOrElse("empty list"))
+
+    try {
+      println(stringList.head)
+    } catch {
+      case e: NoSuchElementException => {
+        println("failed: " + e.getLocalizedMessage)
+      }
+    }
+
+    println(a(1))
+
+    //filtering elements
+    val c = a
+      .filter(_ % 2 == 0)
+      .map(_.toString * 2)
+      .reverse
+      .map(_.toInt * 2)
+
+    println(c)
+
+    //concat arrays
+    val rangeList = (1 to 5).toList
+    println(rangeList:::rangeList)
+    //concat arrays
+    println(0::rangeList)
   }
 }
