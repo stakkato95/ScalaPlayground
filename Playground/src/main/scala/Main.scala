@@ -12,6 +12,7 @@ object Main {
     //    lists()
     //    maps()
     //    sets()
+    patternMatching()
   }
 
   def assertions() = {
@@ -204,5 +205,47 @@ object Main {
 
     val setDiff = setOne diff setTwo
     println(setDiff)
+  }
+
+  def patternMatching() = {
+    val x = "world"
+    val result = x match {
+      case "hello" => "one"
+      case "world" => "two"
+      case "!!!" => "three"
+      case _ => "four"
+    }
+    println(result)
+
+    val y = List("strange", "man")
+    val resultList = y match {
+      case List("normal", "list") => List("hello", 1)
+      case List("strange", _) => List("world", 2)
+      case List("regular", "list") => List("!!!", 3)
+    }
+    println(resultList)
+
+    val z = List("strange", "man")
+    val resultList1 = y match {
+      case List("normal", "list") => List("hello", 1)
+      case List("strange", placeholder) => List("world", 2, placeholder)
+      case List("regular", "list") => List("!!!", 3)
+    }
+    println(resultList1)
+
+    //pattern matching in list
+    val secondElement = List(1, 2) match {
+      case head :: tail => tail.headOption.getOrElse(-1)
+      case _ => 0
+    }
+    println(secondElement)
+
+    {
+      val secondElement = List(1, 2, 3) match {
+        case head :: second :: tail => second
+        case _ => 0
+      }
+      println(secondElement)
+    }
   }
 }
