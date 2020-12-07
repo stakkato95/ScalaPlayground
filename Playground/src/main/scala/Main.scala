@@ -14,6 +14,7 @@ object Main {
     //    sets()
     //    patternMatching()
     //    caseClasses()
+    ranges()
   }
 
   def assertions() = {
@@ -276,5 +277,18 @@ object Main {
     val robot = Robot("T100", "Terminator")
     //mutable "var" property
     robot.name = "Arnold"
+  }
+
+  def ranges() = {
+    val start = 0
+    val end = 10
+    val rng = start to end
+    val rngUntil = start until end
+    println(rng)
+    println(rng.size)
+    println(rngUntil.size)
+
+    val rngClassic = Range(0, 10, 2).inclusive
+    println(rngClassic)
   }
 }
