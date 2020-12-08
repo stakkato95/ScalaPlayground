@@ -1,3 +1,5 @@
+package intro
+
 case class Employee(name: String) {
   def supports(anotherEmployee: Employee) = new Supports(this, anotherEmployee)
 }

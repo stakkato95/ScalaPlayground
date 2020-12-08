@@ -1,3 +1,5 @@
+package intro
+
 object GreekPlanets extends Enumeration {
   val Mars, Moon, Earth = Value
 }

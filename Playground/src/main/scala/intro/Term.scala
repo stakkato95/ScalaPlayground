@@ -1,3 +1,5 @@
+package intro
+
 abstract class Term
 
 case class Var(name: String) extends Term

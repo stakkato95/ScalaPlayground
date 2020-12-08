@@ -1,3 +1,5 @@
+package intro
+
 trait Animal {
   def isHungry(): Boolean
 

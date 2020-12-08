@@ -1,4 +1,4 @@
-import scala.collection.mutable.{Map => MutableMap}
+package intro
 
 object Main {
   implicit val stringMonoid: Monoid[String] = new Monoid[String] {
