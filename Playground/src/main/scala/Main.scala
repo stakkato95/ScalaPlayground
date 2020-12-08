@@ -30,6 +30,7 @@ object Main {
     //    partiallyAppliedFunAndCurrying()
     //    partialFunction()
     //    implicits()
+    //    traitsInheritance()
   }
 
   def assertions() = {
@@ -366,5 +367,16 @@ object Main {
 
     println(sum(List(1, 2, 3)))
     println(sum(List("one", "two", "three")))
+  }
+
+  def traitsInheritance() = {
+    val trainedCat = new TrainedCat(true, "meow")
+    println(trainedCat.isHungry() + " " + trainedCat.makeTrick())
+    println(trainedCat.isInstanceOf[Trainable])
+    println(trainedCat.isInstanceOf[Animal])
+    println(trainedCat.isInstanceOf[Tuple1[_]])
+
+    val trainable = trainedCat.asInstanceOf[Trainable]
+    println(trainable.makeTrick())
   }
 }
