@@ -35,6 +35,7 @@ object Main {
     //    infixTypes()
     //    arrays()
     //    iterableOperations()
+    traversables()
   }
 
   def assertions() = {
@@ -447,5 +448,16 @@ object Main {
 
     println()
     println(a.iterator.sameElements(b))
+  }
+
+  def traversables() = {
+    val list = for (i <- 0 until 10) yield i
+    println("without last: " + list.init)
+
+    val initialValue = 10
+    val foldResult = list.foldLeft(initialValue) { (total, next) => total + next }
+    println(foldResult)
+    
+    println(list.mkString("<->"))
   }
 }
