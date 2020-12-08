@@ -31,7 +31,9 @@ object Main {
     //    partialFunction()
     //    implicits()
     //    traitsInheritance()
-    forLoops()
+    //    forLoops()
+    //    infixTypes()
+    //    arrays()
   }
 
   def assertions() = {
@@ -398,5 +400,23 @@ object Main {
       if num % 2 == 0
     } yield num
     println(result)
+  }
+
+  def infixTypes() = {
+    val mike = Employee("mike")
+    val sam = Employee("sam")
+    val helpInCompany = mike supports sam
+
+    def whoSupportsWhom(support: Employee Supports Employee) = {
+      support.supportProvider.name + " supports " + support.supportReceiver.name
+    }
+
+    println(whoSupportsWhom(helpInCompany))
+  }
+
+  def arrays() = {
+    val ar = Array(1, 2, 3)
+    val list = ar.toList
+    val arFor = for (v <- 1 to 4) yield v
   }
 }
