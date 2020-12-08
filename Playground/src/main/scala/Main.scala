@@ -35,7 +35,8 @@ object Main {
     //    infixTypes()
     //    arrays()
     //    iterableOperations()
-    traversables()
+    //    traversables()
+    byNameParameter()
   }
 
   def assertions() = {
@@ -457,7 +458,22 @@ object Main {
     val initialValue = 10
     val foldResult = list.foldLeft(initialValue) { (total, next) => total + next }
     println(foldResult)
-    
+
     println(list.mkString("<->"))
+  }
+
+  def byNameParameter() = {
+    def calculate(func: => String): Either[String, Double] = {
+      try {
+        Right(func.toDouble)
+      } catch {
+        case _: Exception => Left(func)
+      }
+    }
+
+    val result = calculate {
+      "hello"
+    }
+    println(result)
   }
 }
