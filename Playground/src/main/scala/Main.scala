@@ -31,6 +31,7 @@ object Main {
     //    partialFunction()
     //    implicits()
     //    traitsInheritance()
+    forLoops()
   }
 
   def assertions() = {
@@ -378,5 +379,24 @@ object Main {
 
     val trainable = trainedCat.asInstanceOf[Trainable]
     println(trainable.makeTrick())
+  }
+
+  def forLoops() = {
+    //permutations of elements
+    val xVals = 1 to 4
+    val yVals = 1 to 2
+    val coordinates = for {
+      x <- xVals
+      y <- yVals
+    } yield (x, y)
+    println(coordinates)
+
+    val nums = List(List(1, 2), List(2, 3), List(3, 4))
+    val result = for {
+      numList <- nums
+      num <- numList
+      if num % 2 == 0
+    } yield num
+    println(result)
   }
 }
