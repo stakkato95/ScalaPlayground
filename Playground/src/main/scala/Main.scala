@@ -1,6 +1,18 @@
 import scala.collection.mutable.{Map => MutableMap}
 
 object Main {
+  implicit val stringMonoid: Monoid[String] = new Monoid[String] {
+    override def add(x: String, y: String): String = x concat y
+
+    override def unit: String = ""
+  }
+
+  implicit val intMonoid: Monoid[Int] = new Monoid[Int] {
+    override def add(x: Int, y: Int): Int = x + y
+
+    override def unit: Int = 0
+  }
+
   def main(args: Array[String]) = {
     //    assertions()
     //    classes()
@@ -17,6 +29,7 @@ object Main {
     //    ranges()
     //    partiallyAppliedFunAndCurrying()
     //    partialFunction()
+    //    implicits()
   }
 
   def assertions() = {
@@ -343,5 +356,15 @@ object Main {
     val newToDo = doubleEvens orElse tripleOdds andThen addFive
 
     println(newToDo(3))
+  }
+
+  def implicits() = {
+    def sum[A](xs: List[A])(implicit m: Monoid[A]): A = {
+      if (xs.isEmpty) m.unit
+      else m.add(xs.head, sum(xs.tail))
+    }
+
+    println(sum(List(1, 2, 3)))
+    println(sum(List("one", "two", "three")))
   }
 }
