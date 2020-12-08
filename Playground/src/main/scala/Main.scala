@@ -14,7 +14,9 @@ object Main {
     //    sets()
     //    patternMatching()
     //    caseClasses()
-    ranges()
+    //    ranges()
+    //    partiallyAppliedFunAndCurrying()
+    //    partialFunction()
   }
 
   def assertions() = {
@@ -290,5 +292,56 @@ object Main {
 
     val rngClassic = Range(0, 10, 2).inclusive
     println(rngClassic)
+  }
+
+  def partiallyAppliedFunAndCurrying() = {
+    //partially applied function
+    def sum = (a: Int, b: Int, c: Int) => a + b + c
+
+    val onePlusFivePlus = sum(1, 5, _: Int)
+    println(onePlusFivePlus(10))
+
+    //currying - inverse of partially applied function
+    def multiply(a: Int, b: Int) = a * b
+
+    def multiplyAnother = (a: Int, b: Int) => a * b
+
+    val multiplyCurried = (multiply _).curried
+    println(multiplyCurried(3)(4))
+  }
+
+  def partialFunction() = {
+    //NOT partially applied function!!!
+    //    val doubleEvens: PartialFunction[Int, Int] = new PartialFunction[Int, Int] {
+    //      override def isDefinedAt(x: Int): Boolean = x % 2 == 0
+    //
+    //      override def apply(v1: Int): Int = v1 * 2
+    //    }
+    //
+    //    val tripleOdds: PartialFunction[Int, Int] = new PartialFunction[Int, Int] {
+    //      override def isDefinedAt(x: Int): Boolean = x % 2 == 1
+    //
+    //      override def apply(v1: Int): Int = v1 * 3
+    //    }
+    //
+    //    val whatToDo = doubleEvens orElse tripleOdds
+    //    println("3 is a tripled odd: " + whatToDo(3))
+    //    println("4 is a a doubled even: " + whatToDo(4))
+
+    //case statement as a quick way to create a partial function
+    val doubleEvens: PartialFunction[Int, Int] = {
+      case x if (x % 2) == 0 => x * 2
+    }
+    val tripleOdds: PartialFunction[Int, Int] = {
+      case x if (x % 2) == 1 => x * 3
+    }
+    val whatToDo = doubleEvens orElse tripleOdds
+    println("3 is a tripled odd: " + whatToDo(3))
+    println("4 is a a doubled even: " + whatToDo(4))
+
+    val addFive = (x: Int) => x + 5
+    val newToDo = doubleEvens orElse tripleOdds andThen addFive
+
+    println(newToDo(3))
   }
 }
