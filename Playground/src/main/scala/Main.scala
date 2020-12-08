@@ -34,6 +34,7 @@ object Main {
     //    forLoops()
     //    infixTypes()
     //    arrays()
+    //    iterableOperations()
   }
 
   def assertions() = {
@@ -418,5 +419,33 @@ object Main {
     val ar = Array(1, 2, 3)
     val list = ar.toList
     val arFor = for (v <- 1 to 4) yield v
+  }
+
+  def iterableOperations() = {
+    val list = for (v <- 0 until 15) yield v
+    val groupedByThreeIterator = list grouped 3
+    for (_ <- 0 until 3) {
+      println(groupedByThreeIterator.next)
+    }
+
+    println()
+    val slidingIterable = list sliding 3
+    for (_ <- 0 until 3) {
+      println(slidingIterable.next)
+    }
+
+    val lastThree = list takeRight 3
+    println("\n" + lastThree)
+
+    val a = List(11, 22, 33)
+    val b = List("aa", "bb")
+    println()
+    println(a zipAll(b, -1, "??"))
+
+    println()
+    println(b.zipWithIndex)
+
+    println()
+    println(a.iterator.sameElements(b))
   }
 }
