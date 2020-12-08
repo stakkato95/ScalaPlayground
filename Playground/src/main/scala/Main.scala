@@ -36,7 +36,9 @@ object Main {
     //    arrays()
     //    iterableOperations()
     //    traversables()
-    byNameParameter()
+    //    byNameParameter()
+    //    emptyVals()
+    enumerations()
   }
 
   def assertions() = {
@@ -475,5 +477,15 @@ object Main {
       "hello"
     }
     println(result)
+  }
+
+  def emptyVals() = {
+    //List() == Nil
+    //Some <--> None
+  }
+
+  def enumerations() = {
+    println(GreekPlanets.Earth.id)
+    println(Month.February.id)
   }
 }
