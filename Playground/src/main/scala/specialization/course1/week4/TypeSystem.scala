@@ -25,7 +25,6 @@ object TypeSystem {
     case Var(n) => n.toString
     case Sum(a, b) => "(" + show(a) + " + " + show(b) + ")"
     case Mult(a, b) => "(" + show(a) + " * " + show(b) + ")"
-    case _ => throw IllegalArgumentException
   }
 
   def showExpression() = {
