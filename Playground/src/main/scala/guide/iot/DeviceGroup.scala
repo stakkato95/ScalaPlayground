@@ -2,7 +2,8 @@ package guide.iot
 
 import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
 import akka.actor.typed.{ActorRef, Behavior, PostStop, Signal}
-import guide.iot.DeviceManager.{DeviceRegistered, RequestTrackDevice}
+import guide.iot.DeviceGroup.DeviceTerminated
+import guide.iot.DeviceManager.{DeviceRegistered, ReplyDeviceList, RequestDeviceList, RequestTrackDevice}
 
 object DeviceGroup {
 
@@ -29,12 +30,25 @@ class DeviceGroup(context: ActorContext[DeviceGroup.Command], groupId: String) e
             replyTo ! DeviceRegistered(deviceActor)
           case None =>
             val deviceActor = context.spawn(Device(groupId, deviceId), s"device-$deviceId")
+            context.watchWith(deviceActor, DeviceTerminated(deviceActor, groupId, deviceId))
+
             deviceIdToActor += deviceId -> deviceActor
             replyTo ! DeviceRegistered(deviceActor)
         }
         this
       case RequestTrackDevice(gId, _, _) =>
         context.log.info("Ignoring track device request for {}. This actor is responsible for {}.", gId, groupId)
+        this
+      case RequestDeviceList(requestId, gId, replyTo) =>
+        if (gId == groupId) {
+          replyTo ! ReplyDeviceList(requestId, deviceIdToActor.keySet)
+          this
+        } else {
+          Behaviors.unhandled
+        }
+      case DeviceTerminated(_, _, deviceId) =>
+        context.log.info("Device actor for {} has been terminated.", deviceId)
+        deviceIdToActor -= deviceId
         this
     }
   }

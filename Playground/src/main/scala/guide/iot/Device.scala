@@ -2,7 +2,7 @@ package guide.iot
 
 import akka.actor.typed.{ActorRef, Behavior, PostStop, Signal}
 import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
-import guide.iot.Device.{Command, ReadTemperature, RecordTemperature, RespondTemperature, TemperatureRecorded}
+import guide.iot.Device.{Command, Passivate, ReadTemperature, RecordTemperature, RespondTemperature, TemperatureRecorded}
 
 object Device {
 
@@ -24,6 +24,7 @@ object Device {
   //"RecordED" - acknowledgement
   final case class TemperatureRecorded(requestId: Long)
 
+  final case object Passivate extends Command
 }
 
 class Device(context: ActorContext[Command], groupId: String, deviceId: String) extends AbstractBehavior[Command](context) {
@@ -42,6 +43,8 @@ class Device(context: ActorContext[Command], groupId: String, deviceId: String) 
       case ReadTemperature(requestId, replyTo) =>
         replyTo ! RespondTemperature(requestId, lastTemperatureReading)
         this
+      case Passivate =>
+        Behaviors.stopped
     }
   }
 
