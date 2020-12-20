@@ -110,3 +110,14 @@ fabric.properties
 *.log
 
 # End of https://www.toptal.com/developers/gitignore/api/scala,intellij
+
+# sbt ignore
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+.history
+.cache
+.lib/
