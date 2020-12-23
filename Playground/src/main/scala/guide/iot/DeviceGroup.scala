@@ -1,9 +1,13 @@
 package guide.iot
 
+import java.util.concurrent.TimeUnit
+
 import akka.actor.typed.scaladsl.{AbstractBehavior, ActorContext, Behaviors}
 import akka.actor.typed.{ActorRef, Behavior, PostStop, Signal}
 import guide.iot.DeviceGroup.DeviceTerminated
-import guide.iot.DeviceManager.{DeviceRegistered, ReplyDeviceList, RequestDeviceList, RequestTrackDevice}
+import guide.iot.DeviceManager.{DeviceRegistered, ReplyDeviceList, RequestAllTemperatures, RequestDeviceList, RequestTrackDevice}
+
+import scala.concurrent.duration.FiniteDuration
 
 object DeviceGroup {
 
@@ -50,6 +54,13 @@ class DeviceGroup(context: ActorContext[DeviceGroup.Command], groupId: String) e
         context.log.info("Device actor for {} has been terminated.", deviceId)
         deviceIdToActor -= deviceId
         this
+      case RequestAllTemperatures(requestId, gId, replyTo) =>
+        if (groupId != gId) {
+          Behaviors.unhandled
+        } else {
+          context.spawnAnonymous(DeviceGroupQuery(deviceIdToActor, requestId, replyTo, FiniteDuration(3, TimeUnit.SECONDS)))
+          this
+        }
     }
   }
 

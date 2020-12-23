@@ -14,7 +14,7 @@ object Device {
   final case class ReadTemperature(requestId: Long, replyTo: ActorRef[RespondTemperature]) extends Command
 
   //ACK response of a device to IoT system
-  final case class RespondTemperature(requestId: Long, value: Option[Double])
+  final case class RespondTemperature(requestId: Long, deviceId: String, value: Option[Double])
 
   //requests to a device from a sensor
   //"Record" - command
@@ -41,7 +41,7 @@ class Device(context: ActorContext[Command], groupId: String, deviceId: String) 
         replyTo ! TemperatureRecorded(requestId)
         this
       case ReadTemperature(requestId, replyTo) =>
-        replyTo ! RespondTemperature(requestId, lastTemperatureReading)
+        replyTo ! RespondTemperature(requestId, deviceId, lastTemperatureReading)
         this
       case Passivate =>
         Behaviors.stopped

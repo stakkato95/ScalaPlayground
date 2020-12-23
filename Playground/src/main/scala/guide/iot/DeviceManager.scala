@@ -20,6 +20,24 @@ object DeviceManager {
 
   private final case class DeviceGroupTerminated(groupId: String) extends DeviceManager.Command
 
+  //requesting temperature from all devices
+  //this msg should be understood by DeviceGroupQuery and DeviceGroup actors, so it also extends them
+  final case class RequestAllTemperatures(requestId: Long, groupId: String, replyTo: ActorRef[RespondAllTemperatures])
+    extends DeviceGroupQuery.Command with DeviceGroup.Command with Command
+
+  final case class RespondAllTemperatures(requestId: Long, temperatures: Map[String, TemperatureReading])
+
+  //different results of temperature reading
+  sealed trait TemperatureReading
+
+  final case class Temperature(value: Double) extends TemperatureReading
+
+  final object TemperatureNotAvailable extends TemperatureReading
+
+  final object DeviceNotAvailable extends TemperatureReading
+
+  final object DeviceTimedOut extends TemperatureReading
+
 }
 
 class DeviceManager(context: ActorContext[Command]) extends AbstractBehavior[Command](context) {
