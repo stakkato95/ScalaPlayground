@@ -25,6 +25,5 @@ class ClusterController @Inject()(cc: ClusterControllerComponents) extends Abstr
         BadRequest(s"Request body is not a json")
     }
   }
-}
 
 }
