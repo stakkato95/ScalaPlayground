@@ -9,6 +9,6 @@ class ClusterRouter @Inject()(controller: ClusterController) extends SimpleRoute
 
   override def routes: Routes = {
     case GET(p"/") => controller.getCluster
-    case POST(p"/$id") => controller.postCluster
+    case POST(p"/$id") => controller.postCluster(id.toInt)
   }
 }
