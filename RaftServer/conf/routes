@@ -6,4 +6,6 @@
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 
-->      /cluster                   routers.ClusterRouter
+#->      /cluster                   routers.ClusterRouter
+
+POST /cluster/item controllers.ClusterController.postItemToCluster

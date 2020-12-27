@@ -6,6 +6,6 @@ case class Person(name: String, age: Int)
 
 object Person {
 
-  implicit val personWrites: OWrites[Person] = Json.writes[Person]
-  implicit val personReads: Reads[Person] = Json.reads[Person]
+  implicit val writes: OWrites[Person] = Json.writes[Person]
+  implicit val reads: Reads[Person] = Json.reads[Person]
 }
